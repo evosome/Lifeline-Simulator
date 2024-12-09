@@ -1,0 +1,518 @@
+[gd_scene load_steps=42 format=4 uid="uid://bm4vl3vttcomg"]
+
+[ext_resource type="Script" path="res://scripts/Planty.gd" id="1_xec55"]
+[ext_resource type="Script" path="res://scripts/modeling/SemiModeling.gd" id="2_xw8tk"]
+[ext_resource type="Script" path="res://scripts/modeling/situations/Situation.gd" id="3_e45v0"]
+[ext_resource type="Script" path="res://scripts/modeling/events/EventCalendar.gd" id="3_glpox"]
+[ext_resource type="Script" path="res://scripts/modeling/events/Event.gd" id="4_56ctk"]
+[ext_resource type="Script" path="res://scripts/conditions/EmptyFieldCondition.gd" id="5_vomev"]
+[ext_resource type="Texture2D" uid="uid://bt4m61xdlmwm3" path="res://assets/textures/crops.png" id="5_wp4p4"]
+[ext_resource type="Script" path="res://scripts/events/PlantEmptyFieldsEvent.gd" id="5_x6dep"]
+[ext_resource type="Script" path="res://scripts/actors/plants/PlantType.gd" id="6_0nkvj"]
+[ext_resource type="PackedScene" uid="uid://br6gb3oxxoli4" path="res://assets/plants/sunflower.plant.tscn" id="6_dpash"]
+[ext_resource type="Script" path="res://scripts/levels/Level.gd" id="6_tl3jy"]
+[ext_resource type="Texture2D" uid="uid://bcnjc70hcyitw" path="res://assets/textures/tiles.png" id="7_44gqa"]
+[ext_resource type="Script" path="res://scripts/actors/plants/PlantyPlace.gd" id="8_dk04l"]
+[ext_resource type="Resource" uid="uid://xlh4nd3vtkie" path="res://assets/plants/sunflower.plant_type.tres" id="8_g7hw6"]
+[ext_resource type="Resource" uid="uid://duxtwf7iail5h" path="res://assets/plants/radish.plant_type.tres" id="9_4qytr"]
+[ext_resource type="Script" path="res://scripts/modeling/situations/AlwaysTrueCondition.gd" id="9_20hmq"]
+[ext_resource type="Script" path="res://scripts/events/ActEvent.gd" id="9_ajjqc"]
+[ext_resource type="Resource" uid="uid://cwx75q0wf6wua" path="res://assets/plants/pumpkin.plant_type.tres" id="10_638wp"]
+[ext_resource type="Script" path="res://scripts/events/ThirstyPlantEvent.gd" id="12_sgqss"]
+[ext_resource type="Script" path="res://scripts/conditions/ThirstyPlantCondition.gd" id="13_yf36r"]
+[ext_resource type="Script" path="res://scripts/events/PickupPlantEvent.gd" id="18_n7g07"]
+[ext_resource type="Script" path="res://scripts/conditions/PickPlantNeededCondition.gd" id="19_nqtq2"]
+[ext_resource type="PackedScene" uid="uid://wx4itj6sko52" path="res://assets/scenes/ui.tscn" id="23_tgwaq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwq8f"]
+atlas = ExtResource("5_wp4p4")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="Resource" id="Resource_ogjn6"]
+script = ExtResource("5_x6dep")
+packed_plant = ExtResource("6_dpash")
+plant_types = Array[ExtResource("6_0nkvj")]([ExtResource("8_g7hw6"), ExtResource("9_4qytr"), ExtResource("10_638wp")])
+name = "Fill empty fields with new plants"
+icon = SubResource("AtlasTexture_jwq8f")
+
+[sub_resource type="Resource" id="Resource_onwyr"]
+script = ExtResource("5_vomev")
+
+[sub_resource type="Resource" id="Resource_bh25n"]
+script = ExtResource("3_e45v0")
+_condition = SubResource("Resource_onwyr")
+_is_active = true
+_bound_events = Array[ExtResource("4_56ctk")]([SubResource("Resource_ogjn6")])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18cfe"]
+atlas = ExtResource("7_44gqa")
+region = Rect2(724, 324, 12, 12)
+
+[sub_resource type="Resource" id="Resource_qm10f"]
+script = ExtResource("9_ajjqc")
+name = "Force actors to do actions"
+icon = SubResource("AtlasTexture_18cfe")
+
+[sub_resource type="Resource" id="Resource_io1bn"]
+script = ExtResource("9_20hmq")
+
+[sub_resource type="Resource" id="Resource_xl2so"]
+script = ExtResource("3_e45v0")
+_condition = SubResource("Resource_io1bn")
+_is_active = true
+_bound_events = Array[ExtResource("4_56ctk")]([SubResource("Resource_qm10f")])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usaja"]
+atlas = ExtResource("5_wp4p4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="Resource" id="Resource_ei0su"]
+script = ExtResource("12_sgqss")
+name = "Water thirsty plants"
+icon = SubResource("AtlasTexture_usaja")
+
+[sub_resource type="Resource" id="Resource_mdx6k"]
+script = ExtResource("13_yf36r")
+
+[sub_resource type="Resource" id="Resource_3dcym"]
+script = ExtResource("3_e45v0")
+_condition = SubResource("Resource_mdx6k")
+_is_active = true
+_bound_events = Array[ExtResource("4_56ctk")]([SubResource("Resource_ei0su")])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftugq"]
+atlas = ExtResource("7_44gqa")
+region = Rect2(1004, 304, 12, 12)
+
+[sub_resource type="Resource" id="Resource_e6d30"]
+script = ExtResource("18_n7g07")
+name = "Pick up a mature plant"
+icon = SubResource("AtlasTexture_ftugq")
+
+[sub_resource type="Resource" id="Resource_k6sd7"]
+script = ExtResource("19_nqtq2")
+
+[sub_resource type="Resource" id="Resource_oixdl"]
+script = ExtResource("3_e45v0")
+_condition = SubResource("Resource_k6sd7")
+_is_active = true
+_bound_events = Array[ExtResource("4_56ctk")]([SubResource("Resource_e6d30")])
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ti0ib"]
+texture = ExtResource("7_44gqa")
+3:3/0 = 0
+3:3/0/terrain_set = 0
+3:3/0/terrain = 1
+3:3/0/probability = 0.5
+3:5/0 = 0
+3:5/0/terrain_set = 0
+3:5/0/terrain = 1
+3:5/0/probability = 0.5
+25:9/0 = 0
+25:9/0/terrain_set = 0
+25:9/0/terrain = 0
+25:9/0/probability = 0.25
+26:9/0 = 0
+26:9/0/terrain_set = 0
+26:9/0/terrain = 0
+26:9/0/probability = 0.25
+26:10/0 = 0
+26:10/0/terrain_set = 0
+26:10/0/terrain = 0
+26:10/0/probability = 0.25
+25:10/0 = 0
+25:10/0/terrain_set = 0
+25:10/0/terrain = 0
+25:10/0/probability = 0.25
+
+[sub_resource type="TileSet" id="TileSet_nx7jn"]
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Dirt"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+terrain_set_0/terrain_1/name = "Grass"
+terrain_set_0/terrain_1/color = Color(0.105882, 0.439216, 0.25098, 1)
+sources/0 = SubResource("TileSetAtlasSource_ti0ib")
+
+[node name="Main" type="Node" node_paths=PackedStringArray("_ui", "_actors", "_planties", "_modeling")]
+script = ExtResource("1_xec55")
+_ui = NodePath("Control/UI")
+_actors = NodePath("Control/SubViewportContainer/SubViewport/Level/Actors")
+_planties = NodePath("Control/SubViewportContainer/SubViewport/Level/Planties")
+_modeling = NodePath("Control/SubViewportContainer/SubViewport/SemiModeling")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1152, 648)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="ModelingTimer" type="Timer" parent="Control/SubViewportContainer/SubViewport"]
+wait_time = 0.1
+
+[node name="SemiModeling" type="Node" parent="Control/SubViewportContainer/SubViewport" node_paths=PackedStringArray("_timer", "_event_calendar")]
+script = ExtResource("2_xw8tk")
+_is_modeling = true
+_timer = NodePath("../ModelingTimer")
+_situations = Array[ExtResource("3_e45v0")]([SubResource("Resource_bh25n"), SubResource("Resource_xl2so"), SubResource("Resource_3dcym"), SubResource("Resource_oixdl")])
+_event_calendar = NodePath("../EventCalendar")
+
+[node name="EventCalendar" type="Node" parent="Control/SubViewportContainer/SubViewport"]
+script = ExtResource("3_glpox")
+
+[node name="Level" type="Node" parent="Control/SubViewportContainer/SubViewport" node_paths=PackedStringArray("_actors", "_terrain")]
+script = ExtResource("6_tl3jy")
+_actors = NodePath("Actors")
+_terrain = NodePath("TileMapLayer")
+_cell_size = Vector2i(16, 16)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Control/SubViewportContainer/SubViewport/Level"]
+tile_map_data = PackedByteArray("AAD0//n/AAADAAMAAAD0/wYAAAADAAUAAAD0//r/AAADAAMAAAD0//v/AAADAAUAAAD0//z/AAADAAUAAAD0//3/AAADAAMAAAD0//7/AAADAAUAAAD0////AAADAAUAAAD0/wAAAAADAAMAAAD0/wEAAAADAAMAAAD0/wIAAAADAAMAAAD0/wMAAAADAAMAAAD0/wQAAAADAAUAAAD0/wUAAAADAAMAAAD1/wYAAAADAAMAAAD2/wYAAAADAAMAAAD3/wYAAAADAAMAAAD4/wYAAAADAAMAAAD4/wUAAAADAAUAAAD5/wUAAAADAAMAAAD6/wUAAAADAAMAAAD7/wUAAAADAAMAAAD8/wUAAAADAAMAAAD9/wUAAAADAAUAAAD+/wUAAAADAAUAAAD//wUAAAADAAMAAAAAAAUAAAADAAUAAAABAAUAAAADAAMAAAACAAUAAAADAAMAAAACAAYAAAADAAUAAAADAAYAAAADAAMAAAABAAYAAAADAAUAAAAAAAYAAAADAAMAAAD//wYAAAADAAUAAAD+/wYAAAADAAMAAAD9/wYAAAADAAMAAAD8/wYAAAADAAUAAAD7/wYAAAADAAMAAAD6/wYAAAADAAUAAAD5/wYAAAADAAMAAAAEAAYAAAADAAUAAAAFAAYAAAADAAMAAAAGAAYAAAADAAUAAAAHAAYAAAADAAMAAAAIAAYAAAADAAMAAAAJAAYAAAADAAUAAAAKAAYAAAADAAMAAAALAAYAAAADAAMAAAALAAUAAAADAAMAAAALAAQAAAADAAMAAAALAAMAAAADAAUAAAALAAIAAAADAAUAAAALAAEAAAADAAUAAAALAAAAAAADAAMAAAALAP//AAADAAMAAAALAP7/AAADAAUAAAALAP3/AAADAAUAAAALAPz/AAADAAMAAAALAPv/AAADAAUAAAALAPr/AAADAAMAAAALAPn/AAADAAUAAAAKAPn/AAADAAUAAAAJAPn/AAADAAUAAAAIAPn/AAADAAMAAAAHAPn/AAADAAUAAAAGAPn/AAADAAUAAAAFAPn/AAADAAMAAAAEAPn/AAADAAMAAAADAPn/AAADAAUAAAACAPn/AAADAAMAAAABAPn/AAADAAUAAAAAAPn/AAADAAUAAAD6//n/AAADAAUAAAD5//n/AAADAAUAAAD4//n/AAADAAMAAAD3//n/AAADAAMAAAD2//n/AAADAAMAAAD1//n/AAADAAMAAAD7//n/AAADAAUAAAD8//n/AAADAAMAAAD9//n/AAADAAMAAAD+//n/AAADAAMAAAD///n/AAADAAUAAAD/////AAAaAAkAAAD//wAAAAAZAAoAAAAAAAAAAAAaAAoAAAAAAP//AAAZAAoAAAAAAP7/AAAZAAoAAAD///7/AAAZAAkAAAD+//7/AAAZAAoAAAD+////AAAaAAoAAAD+/wAAAAAaAAkAAAD+/wEAAAAZAAoAAAD//wEAAAAaAAoAAAAAAAEAAAAZAAoAAAABAAEAAAAZAAkAAAABAAAAAAAZAAkAAAABAP//AAAaAAkAAAABAP7/AAAZAAkAAAABAP3/AAAaAAoAAAAAAP3/AAAZAAkAAAD///3/AAAZAAkAAAD+//3/AAAaAAoAAAD9//3/AAAZAAoAAAD9//7/AAAZAAoAAAD9////AAAZAAkAAAD9/wAAAAAaAAkAAAD9/wEAAAAaAAoAAAD9/wIAAAAaAAoAAAD+/wIAAAAaAAkAAAD//wIAAAAZAAoAAAAAAAIAAAAaAAkAAAABAAIAAAAZAAoAAAACAAEAAAAZAAkAAAACAAAAAAAZAAoAAAACAP//AAAaAAkAAAACAP7/AAAZAAkAAAACAP3/AAAZAAoAAAACAAIAAAAZAAoAAAACAPz/AAAZAAkAAAABAPz/AAAZAAoAAAAAAPz/AAAZAAkAAAD///z/AAAaAAkAAAD+//z/AAAaAAoAAAD9//z/AAAaAAoAAAD8//z/AAAZAAoAAAD8//3/AAAZAAoAAAD8//7/AAAaAAkAAAD8////AAAZAAoAAAD8/wAAAAAaAAoAAAD8/wEAAAAaAAkAAAD8/wIAAAAZAAkAAAD8/wMAAAAZAAkAAAD9/wMAAAAZAAkAAAD+/wMAAAAZAAkAAAD//wMAAAAZAAoAAAAAAAMAAAAaAAoAAAABAAMAAAAZAAoAAAACAAMAAAAaAAoAAAADAAMAAAAaAAoAAAADAAIAAAAaAAoAAAADAAEAAAAaAAkAAAADAAAAAAAaAAkAAAADAP//AAAaAAoAAAADAP7/AAAaAAkAAAADAP3/AAAZAAkAAAADAPz/AAAaAAoAAAD7/wQAAAADAAUAAAD7/wMAAAADAAUAAAD7/wIAAAADAAMAAAD7/wEAAAADAAUAAAD7/wAAAAADAAMAAAD7////AAADAAMAAAD7//7/AAADAAUAAAD7//3/AAADAAMAAAD7//z/AAADAAMAAAD7//v/AAADAAUAAAD7//r/AAADAAUAAAD8//v/AAADAAMAAAD9//v/AAADAAMAAAD6/wQAAAADAAMAAAD6/wMAAAADAAUAAAD6/wIAAAADAAMAAAD6/wEAAAADAAUAAAD6/wAAAAADAAUAAAD6////AAADAAMAAAD6//7/AAADAAUAAAD6//3/AAADAAUAAAD6//z/AAADAAUAAAD6//v/AAADAAUAAAD6//r/AAADAAMAAAD5/wQAAAADAAMAAAD5/wMAAAADAAUAAAD5/wIAAAADAAUAAAD5/wEAAAADAAUAAAD5/wAAAAADAAMAAAD5////AAADAAUAAAD5//7/AAADAAUAAAD5//3/AAADAAMAAAD5//z/AAADAAUAAAD5//v/AAADAAUAAAD5//r/AAADAAUAAAD4/wQAAAADAAUAAAD4/wMAAAADAAUAAAD4/wIAAAADAAMAAAD4/wEAAAADAAUAAAD4/wAAAAADAAMAAAD4////AAADAAUAAAD4//7/AAADAAMAAAD4//3/AAADAAMAAAD4//z/AAADAAMAAAD4//v/AAADAAUAAAD4//r/AAADAAUAAAD3/wUAAAADAAMAAAD3/wQAAAADAAUAAAD3/wMAAAADAAMAAAD3/wIAAAADAAUAAAD3/wEAAAADAAMAAAD3/wAAAAADAAMAAAD3////AAADAAMAAAD3//7/AAADAAMAAAD3//3/AAADAAUAAAD3//z/AAADAAUAAAD3//v/AAADAAUAAAD3//r/AAADAAMAAAD2/wUAAAADAAMAAAD2/wQAAAADAAUAAAD2/wMAAAADAAUAAAD2/wIAAAADAAUAAAD2/wEAAAADAAUAAAD2/wAAAAADAAMAAAD2////AAADAAMAAAD2//7/AAADAAMAAAD2//3/AAADAAMAAAD2//z/AAADAAMAAAD2//v/AAADAAUAAAD2//r/AAADAAMAAAD1/wUAAAADAAUAAAD1/wQAAAADAAMAAAD1/wMAAAADAAUAAAD1/wIAAAADAAUAAAD1/wEAAAADAAUAAAD1/wAAAAADAAMAAAD1////AAADAAMAAAD1//7/AAADAAUAAAD1//3/AAADAAMAAAD1//z/AAADAAMAAAD1//v/AAADAAUAAAD1//r/AAADAAMAAAAKAAUAAAADAAMAAAAKAAQAAAADAAUAAAAKAAMAAAADAAUAAAAKAAIAAAADAAMAAAAKAAEAAAADAAMAAAAKAAAAAAADAAMAAAAKAP//AAADAAMAAAAKAP7/AAADAAUAAAAKAP3/AAADAAMAAAAKAPz/AAADAAMAAAAKAPv/AAADAAUAAAAKAPr/AAADAAMAAAAJAAUAAAADAAMAAAAJAAQAAAADAAMAAAAJAAMAAAADAAMAAAAJAAIAAAADAAUAAAAJAAEAAAADAAUAAAAJAAAAAAADAAUAAAAJAP//AAADAAMAAAAJAP7/AAADAAUAAAAJAP3/AAADAAUAAAAJAPz/AAADAAMAAAAJAPv/AAADAAUAAAAJAPr/AAADAAUAAAAIAAUAAAADAAMAAAAIAAQAAAADAAMAAAAIAAMAAAADAAUAAAAIAAIAAAADAAUAAAAIAAEAAAADAAMAAAAIAAAAAAADAAUAAAAIAP//AAADAAMAAAAIAP7/AAADAAUAAAAIAP3/AAADAAUAAAAIAPz/AAADAAUAAAAIAPv/AAADAAMAAAAIAPr/AAADAAMAAAAHAAUAAAADAAUAAAAHAAQAAAADAAMAAAAHAAMAAAADAAUAAAAHAAIAAAADAAUAAAAHAAEAAAADAAUAAAAHAAAAAAADAAUAAAAHAP//AAADAAMAAAAHAP7/AAADAAMAAAAHAP3/AAADAAMAAAAHAPz/AAADAAUAAAAHAPv/AAADAAUAAAAHAPr/AAADAAUAAAAGAAUAAAADAAUAAAAGAAQAAAADAAUAAAAGAAMAAAADAAMAAAAGAAIAAAADAAUAAAAGAAEAAAADAAMAAAAGAAAAAAADAAUAAAAGAP//AAADAAUAAAAGAP7/AAADAAMAAAAGAP3/AAADAAMAAAAGAPz/AAADAAMAAAAGAPv/AAADAAMAAAAGAPr/AAADAAUAAAAFAAUAAAADAAUAAAAFAAQAAAADAAMAAAAFAAMAAAADAAUAAAAFAAIAAAADAAUAAAAFAAEAAAADAAMAAAAFAAAAAAADAAUAAAAFAP//AAADAAMAAAAFAP7/AAADAAUAAAAFAP3/AAADAAUAAAAFAPz/AAADAAMAAAAFAPv/AAADAAUAAAAFAPr/AAADAAUAAAAEAAUAAAADAAMAAAAEAAQAAAADAAUAAAAEAAMAAAADAAUAAAAEAAIAAAADAAMAAAAEAAEAAAADAAMAAAAEAAAAAAADAAMAAAAEAP//AAADAAMAAAAEAP7/AAADAAMAAAAEAP3/AAADAAUAAAAEAPz/AAADAAUAAAAEAPv/AAADAAMAAAAEAPr/AAADAAUAAAADAAUAAAADAAMAAAADAAQAAAADAAMAAAADAPv/AAADAAUAAAADAPr/AAADAAMAAAACAAQAAAADAAMAAAACAPv/AAADAAUAAAACAPr/AAADAAMAAAABAAQAAAADAAMAAAABAPv/AAADAAUAAAABAPr/AAADAAUAAAAAAAQAAAADAAMAAAAAAPv/AAADAAMAAAAAAPr/AAADAAUAAAD//wQAAAADAAMAAAD///v/AAADAAUAAAD///r/AAADAAUAAAD+/wQAAAADAAMAAAD+//v/AAADAAUAAAD+//r/AAADAAMAAAD9/wQAAAADAAMAAAD9//r/AAADAAMAAAD8/wQAAAADAAMAAAD8//r/AAADAAMAAAA=")
+tile_set = SubResource("TileSet_nx7jn")
+
+[node name="Actors" type="Node" parent="Control/SubViewportContainer/SubViewport/Level"]
+
+[node name="Planties" type="Node" parent="Control/SubViewportContainer/SubViewport/Level"]
+
+[node name="PlantyPlace" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-56, -56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace2" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-40, -56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace3" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-24, -56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace4" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-8, -56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace5" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(8, -56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace6" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(24, -56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace7" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(40, -56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace8" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(56, -56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace25" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-56, -8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace26" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-40, -8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace27" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-24, -8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace28" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-8, -8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace29" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(8, -8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace30" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(24, -8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace31" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(40, -8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace32" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(56, -8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace33" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-56, 8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace34" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-40, 8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace35" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-24, 8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace36" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-8, 8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace37" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(8, 8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace38" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(24, 8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace39" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(40, 8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace40" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(56, 8)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace41" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-56, 24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace42" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-40, 24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace43" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-24, 24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace44" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-8, 24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace45" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(8, 24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace46" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(24, 24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace47" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(40, 24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace48" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(56, 24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace49" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-56, 40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace50" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-40, 40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace51" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-24, 40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace52" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-8, 40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace53" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(8, 40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace54" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(24, 40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace55" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(40, 40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace56" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(56, 40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace57" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-56, 56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace58" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-40, 56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace59" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-24, 56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace60" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-8, 56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace61" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(8, 56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace62" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(24, 56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace63" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(40, 56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace64" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(56, 56)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace9" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-56, -40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace10" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-40, -40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace11" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-24, -40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace12" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-8, -40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace13" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(8, -40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace14" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(24, -40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace15" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(40, -40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace16" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(56, -40)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace17" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-56, -24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace18" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-40, -24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace19" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-24, -24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace20" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(-8, -24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace21" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(8, -24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace22" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(24, -24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace23" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(40, -24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="PlantyPlace24" type="Node2D" parent="Control/SubViewportContainer/SubViewport/Level/Planties" node_paths=PackedStringArray("_level_ref")]
+position = Vector2(56, -24)
+script = ExtResource("8_dk04l")
+_level_ref = NodePath("../..")
+
+[node name="Camera2D" type="Camera2D" parent="Control/SubViewportContainer/SubViewport"]
+zoom = Vector2(3, 3)
+
+[node name="UI" parent="Control" instance=ExtResource("23_tgwaq")]
+layout_mode = 1

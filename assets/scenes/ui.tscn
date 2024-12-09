@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=3 uid="uid://wx4itj6sko52"]
+
+[ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_wmnie"]
+[ext_resource type="PackedScene" uid="uid://dlknndysric0a" path="res://assets/scenes/type_counter.ui.tscn" id="2_p7oxk"]
+[ext_resource type="PackedScene" uid="uid://dimgla8gm5c5f" path="res://assets/scenes/event_notification.ui.tscn" id="3_hux4g"]
+[ext_resource type="Texture2D" uid="uid://ckycg8c51rhk0" path="res://assets/textures/Pause.png" id="4_0eyj7"]
+[ext_resource type="Texture2D" uid="uid://dl7l1loaovkis" path="res://assets/textures/Play.png" id="5_mtss6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bbjnr"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="UI" type="Control" node_paths=PackedStringArray("play_button", "pause_button", "_scrollable", "_event_calendar", "_types_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wmnie")
+_event_notification_packed = ExtResource("3_hux4g")
+_types_counter_packed = ExtResource("2_p7oxk")
+play_button = NodePath("_Root/_CollectedTypesPanel/MarginContainer/_VBox/HBoxContainer/PlayButton")
+pause_button = NodePath("_Root/_CollectedTypesPanel/MarginContainer/_VBox/HBoxContainer/PauseButton")
+_scrollable = NodePath("_Root/_CollectedTypesPanel/MarginContainer/_VBox/_EventCalendarContainer/_Scrollable")
+_event_calendar = NodePath("_Root/_CollectedTypesPanel/MarginContainer/_VBox/_EventCalendarContainer/_Scrollable/EventCalendar")
+_types_container = NodePath("_Root/_CollectedTypesPanel/MarginContainer/_VBox/TypeContainer")
+
+[node name="_Root" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="_CollectedTypesPanel" type="PanelContainer" parent="_Root"]
+custom_minimum_size = Vector2(296, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_bbjnr")
+
+[node name="MarginContainer" type="MarginContainer" parent="_Root/_CollectedTypesPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="_VBox" type="VBoxContainer" parent="_Root/_CollectedTypesPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="TypeContainer" type="HFlowContainer" parent="_Root/_CollectedTypesPanel/MarginContainer/_VBox"]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="_Root/_CollectedTypesPanel/MarginContainer/_VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="PauseButton" type="Button" parent="_Root/_CollectedTypesPanel/MarginContainer/_VBox/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("4_0eyj7")
+expand_icon = true
+
+[node name="PlayButton" type="Button" parent="_Root/_CollectedTypesPanel/MarginContainer/_VBox/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("5_mtss6")
+expand_icon = true
+
+[node name="_EventCalendarContainer" type="MarginContainer" parent="_Root/_CollectedTypesPanel/MarginContainer/_VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="_Scrollable" type="ScrollContainer" parent="_Root/_CollectedTypesPanel/MarginContainer/_VBox/_EventCalendarContainer"]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="EventCalendar" type="VBoxContainer" parent="_Root/_CollectedTypesPanel/MarginContainer/_VBox/_EventCalendarContainer/_Scrollable"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2

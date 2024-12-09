@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="PlantType" load_steps=9 format=3 uid="uid://cwx75q0wf6wua"]
+
+[ext_resource type="Script" path="res://scripts/actors/plants/PlantType.gd" id="1_8y7wb"]
+[ext_resource type="Texture2D" uid="uid://bt4m61xdlmwm3" path="res://assets/textures/crops.png" id="2_gqbjd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bi616"]
+atlas = ExtResource("2_gqbjd")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wtqj"]
+atlas = ExtResource("2_gqbjd")
+region = Rect2(64, 28, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eam8"]
+atlas = ExtResource("2_gqbjd")
+region = Rect2(64, 44, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avvki"]
+atlas = ExtResource("2_gqbjd")
+region = Rect2(64, 60, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j26ap"]
+atlas = ExtResource("2_gqbjd")
+region = Rect2(64, 76, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ex4k"]
+atlas = ExtResource("2_gqbjd")
+region = Rect2(16, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_8y7wb")
+icon = SubResource("AtlasTexture_bi616")
+textures = Array[Texture2D]([SubResource("AtlasTexture_0wtqj"), SubResource("AtlasTexture_3eam8"), SubResource("AtlasTexture_avvki"), SubResource("AtlasTexture_j26ap"), SubResource("AtlasTexture_4ex4k")])
+thirst_base = 4.0
+thirst_threshold = 2.0
+thirst_amplifier = 0.2
+age_threshold = 10.0
+age_amplifier = 0.2

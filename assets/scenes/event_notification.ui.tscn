@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://dimgla8gm5c5f"]
+
+[ext_resource type="Script" path="res://scripts/ui/EventNotificationGroup.gd" id="1_uek1r"]
+[ext_resource type="PackedScene" uid="uid://c0808y26fh1ne" path="res://assets/scenes/event.ui.tscn" id="2_h8gei"]
+
+[node name="EventNotification" type="PanelContainer" node_paths=PackedStringArray("ticks_count_label", "events_container")]
+custom_minimum_size = Vector2(216, 0)
+offset_right = 229.0
+offset_bottom = 81.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_uek1r")
+_event_packed = ExtResource("2_h8gei")
+ticks_count_label = NodePath("_Panel/_Margin/_Details/_TicksDetails/TicksCount")
+events_container = NodePath("_Panel/_Margin/_Details/_EventDetails/Events")
+
+[node name="_Panel" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="_Margin" type="MarginContainer" parent="_Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="_Details" type="HBoxContainer" parent="_Panel/_Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="_TicksDetails" type="HBoxContainer" parent="_Panel/_Margin/_Details"]
+layout_mode = 2
+
+[node name="TicksCount" type="Label" parent="_Panel/_Margin/_Details/_TicksDetails"]
+layout_mode = 2
+text = "22"
+
+[node name="_Ticks" type="Label" parent="_Panel/_Margin/_Details/_TicksDetails"]
+layout_mode = 2
+text = "ticks"
+
+[node name="_Arrow" type="Label" parent="_Panel/_Margin/_Details"]
+layout_mode = 2
+text = "->"
+
+[node name="_EventDetails" type="HBoxContainer" parent="_Panel/_Margin/_Details"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Events" type="VBoxContainer" parent="_Panel/_Margin/_Details/_EventDetails"]
+layout_mode = 2
+alignment = 1
